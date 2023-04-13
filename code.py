@@ -15,6 +15,7 @@ df = pd.read_csv('cleanpokemon.csv')
 # Define the available generations
 gen = list(df['Generation'].unique())
 gen.append('All')
+gen.append('Legendary')
 
 
 # Define the available types
@@ -33,8 +34,11 @@ selected_type = st.selectbox('Select a type', types)
 #making the figures
 if selected_gen == 'All':
     df_gen = df
-else:
+else if:
     df_gen = df[df['Generation'] == selected_gen]
+else:
+    df_gen = df[df['Legendary'] == True]
+    
     
 if selected_type == 'All':
     df_gen = df
@@ -66,13 +70,19 @@ colours = {
     
     
     
-    
-    
 if selected_gen == 'All':
     fig = px.scatter(df_gen,
                  x='Weight',y='Height', color='Primary',
                  color_discrete_map=colours, hover_data='Name', size='HP')
     fig.update_layout(title=f'Weight vs Height for {selected_type} Pokemon from all Generations')
+
+    
+else if:
+    fig = px.scatter(df_gen[df_gen['Legendary']==True],
+                 x='Weight',y='Height', color='Primary',
+                 color_discrete_map=colours, hover_data='Name', size='HP')
+    fig.update_layout(title=f'Weight vs Height for {selected_type} Pokemon in Generation {selected_gen}')
+
     
 else:
     fig = px.scatter(df_gen[df_gen['Generation']==selected_gen],
