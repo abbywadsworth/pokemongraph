@@ -2,9 +2,13 @@ import pandas as pd
 import plotly.express as px
 import streamlit as st
 
+pokemon.drop(labels='height_m', axis=1, inplace=True)
+
 # Load the data
-df = pd.read_csv('world_bank.csv')
+df = pd.read_csv('pokemonclean.csv')
 df = df.dropna(subset='population')
+
+
 
 # Define the available regions
 regions = list(df['Region'].unique())
