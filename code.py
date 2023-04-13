@@ -38,6 +38,11 @@ if selected_gen == 'All':
     df_gen = df
 else:
     df_gen = df[df['Generation'] == selected_gen]
+    
+if selected_type == 'All':
+    df_gen = df
+else:
+    df_gen = df[df['Primary'] == selected_type]
 
 fig = px.scatter(df_gen[df_gen['Generation']==selected_gen],
                  x='Weight',y='Height',
