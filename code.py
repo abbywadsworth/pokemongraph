@@ -17,15 +17,10 @@ gen = list(df['Generation'].unique())
 gen.append('All')
 
 
-
 # Define the available types
 types = list(df['Primary'].unique())
 types.append('All')
 
-
-
-
-#years = list(df['Year'].unique())
 
 # Define the Streamlit app
 st.title('Graph your own Pokemon data')
@@ -73,7 +68,7 @@ colours = {
     
     
     
-fig = px.scatter(df_gen[df_gen['Generation']==selected_gen],
+fig = px.scatter(df_gen,
                  x='Weight',y='Height', color='Primary',
                  color_discrete_map=colours, hover_data='Name', size='HP')
 fig.update_layout(title=f'Weight vs Height for {selected_type} in Generation {selected_gen}')
