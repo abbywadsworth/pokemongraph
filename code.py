@@ -5,7 +5,7 @@ import streamlit as st
 
 
 # Load the data
-df = pd.read_csv('pokemonclean.csv')
+df = pd.read_csv('cleanpokemon.csv')
 
 #getting rid of percentage_male
 #df.drop(labels='percentage_male', axis=1, inplace=True)
