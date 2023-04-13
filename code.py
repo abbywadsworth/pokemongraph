@@ -34,10 +34,10 @@ selected_type = st.selectbox('Select a type', types)
 #making the figures
 if selected_gen == 'All':
     df_gen = df
-elif:
-    df_gen = df[df['Generation'] == selected_gen]
-else:
+elif selected_gen == 'Legendary':
     df_gen = df[df['Legendary'] == True]
+else:
+    df_gen = df[df['Generation'] == selected_gen]
     
     
 if selected_type == 'All':
@@ -77,7 +77,7 @@ if selected_gen == 'All':
     fig.update_layout(title=f'Weight vs Height for {selected_type} Pokemon from all Generations')
 
     
-elif:
+elif selected_gen == 'Legendary':
     fig = px.scatter(df_gen[df_gen['Legendary']==True],
                  x='Weight',y='Height', color='Primary',
                  color_discrete_map=colours, hover_data='Name', size='HP')
