@@ -82,7 +82,11 @@ elif selected_gen == 'Legendary':
     fig = px.scatter(df_gen[df_gen['Legendary']==True],
                  x='Weight',y='Height', color='Primary',
                  color_discrete_map=colours, hover_data='Name', size='HP')
-    fig.update_layout(title=f'Weight vs Height for {selected_type} Legendary Pokemon')
+    if selected_type == 'All':
+        fig.update_layout(title=f'Weight vs Height for {selected_type} Legendary Pokemon')
+    
+    else:
+        fig.update_layout(title=f'Weight vs Height for Legendary {selected_type} Pokemon')
 
     
 else:
