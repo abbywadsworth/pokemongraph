@@ -2,36 +2,48 @@ import pandas as pd
 import plotly.express as px
 import streamlit as st
 
-pokemon.drop(labels='height_m', axis=1, inplace=True)
+
 
 # Load the data
 df = pd.read_csv('pokemonclean.csv')
+
+#getting rid of percentage_male
+pokemon.drop(labels='percentage_male', axis=1, inplace=True)
+
 df = df.dropna(subset='population')
 
 
+# Define the available generations
+gen = list(df['Generation'].unique())
+gen.append('All')
 
-# Define the available regions
-regions = list(df['Region'].unique())
-regions.append('All')
+
+
+# Define the available types
+types = list(df['Primary'].unique())
+types.append('All')
+
+
+
 
 years = list(df['Year'].unique())
 
 # Define the Streamlit app
-st.title('World Data Explorer')
+st.title('Graph your own Pokemon data')
 
-selected_region = st.selectbox('Select a region', regions)
-selected_year = st.selectbox('Select a year', years)
+selected_gen = st.selectbox('Select a generation', gen)
+selected_type = st.selectbox('Select a type', types)
 
 #making the figures
-if selected_region == 'All':
-    df_region = df
+if selected_gen == 'All':
+    df_gen = df
 else:
-    df_region = df[df['Region'] == selected_region]
+    df_gen = df[df['Generation'] == selected_gen]
 
-fig = px.scatter(df_region[df_region['Year']==selected_year],
-                 x='gdp',y='life_expectancy', color='Region',
-                 hover_data=['Country Name'], size='population')
-fig.update_layout(title=f'GDP vs Life Expectancy for {selected_region} in {selected_year}')
+fig = px.scatter(df_gen[df_gen['Generation']==selected_gen],
+                 x='Weight',y='Height', color='Region',
+                 hover_data=['Name'], size='HP')
+fig.update_layout(title=f'Weight vs Height for {selected_type} in Generation {selected_gen}')
 
 #telling streamlit you have a plotly fig to insert
 st.plotly_chart(fig)
