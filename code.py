@@ -68,10 +68,18 @@ colours = {
     
     
     
-fig = px.scatter(df_gen,
+if selected_gen == 'All':
+    fig = px.scatter(df_gen,
                  x='Weight',y='Height', color='Primary',
                  color_discrete_map=colours, hover_data='Name', size='HP')
-fig.update_layout(title=f'Weight vs Height for {selected_type} in Generation {selected_gen}')
-
+    fig.update_layout(title=f'Weight vs Height for {selected_type} Pokemon from all Generations')
+    
+else:
+    fig = px.scatter(df_gen[df_gen['Generation']==selected_gen],
+                 x='Weight',y='Height', color='Primary',
+                 color_discrete_map=colours, hover_data='Name', size='HP')
+    fig.update_layout(title=f'Weight vs Height for {selected_type} Pokemon in Generation {selected_gen}')
+    
+    
 #telling streamlit you have a plotly fig to insert
 st.plotly_chart(fig)
