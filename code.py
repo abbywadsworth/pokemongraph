@@ -14,8 +14,9 @@ df = pd.read_csv('cleanpokemon.csv')
 
 # Define the available generations
 gen = list(df['Generation'].unique())
-gen.append('All')
 gen.append('Legendary')
+gen.append('All')
+
 
 
 # Define the available types
