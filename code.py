@@ -74,7 +74,7 @@ colours = {
     
     
 fig = px.scatter(df_gen,
-                 x='Weight',y='Height', color='Primary'
+                 x='Weight',y='Height', color='Primary',
                  color_discrete_map=colours, hover_data='Name', size='HP')
 fig.update_layout(title=f'Weight vs Height for {selected_type} in Generation {selected_gen}')
 
