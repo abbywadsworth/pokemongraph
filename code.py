@@ -11,6 +11,9 @@ df = pd.read_csv('cleanpokemon.csv')
 #df.drop(labels='percentage_male', axis=1, inplace=True)
 
 
+# Define the Streamlit app
+st.title('Graph your own Pokemon data')
+
 
 # Define the available generations
 gen = list(df['Generation'].unique())
@@ -23,9 +26,6 @@ gen.append('All')
 types = list(df['Primary'].unique())
 types.append('All')
 
-
-# Define the Streamlit app
-st.title('Graph your own Pokemon data')
 
 
 #making drop down menus
@@ -55,6 +55,14 @@ y = ['Height', 'HP', 'MaxHP', 'Stamina', 'Weight']
 selected_y = st.selectbox('Select a variable for your y-axis',y)
 
 
+
+size = ['Height', 'HP', 'MaxHP', 'Stamina', 'Weight']
+gen.append('None')
+
+selected_size = st.selectbox('Select a variable for your size',size)
+
+
+
     
 colours = {
 'Normal': '#A8A77A',
@@ -78,30 +86,55 @@ colours = {
 }    
     
 
-    
-if selected_gen == 'All':
-    fig = px.scatter(df_gen,
+if selected_size == 'None:
+    if selected_gen == 'All':
+        fig = px.scatter(df_gen,
                  x=selected_x,y=selected_y, color='Primary',
-                 color_discrete_map=colours, hover_data='Name', size='HP')
-    fig.update_layout(title=f'{selected_x} vs {selected_y} for {selected_type} Pokemon from all Generations')
+                 color_discrete_map=colours, hover_data='Name')
+        fig.update_layout(title=f'{selected_x} vs {selected_y} for {selected_type} Pokemon from all Generations')
 
     
-elif selected_gen == 'Legendary':
-    fig = px.scatter(df_gen[df_gen['Legendary']==True],
+    elif selected_gen == 'Legendary':
+        fig = px.scatter(df_gen[df_gen['Legendary']==True],
                  x=selected_x,y=selected_y, color='Primary',
-                 color_discrete_map=colours, hover_data='Name', size='HP')
-    if selected_type == 'All':
-        fig.update_layout(title=f'{selected_x} vs {selected_y} for {selected_type} Legendary Pokemon')
+                 color_discrete_map=colours, hover_data='Name')
+        if selected_type == 'All':
+            fig.update_layout(title=f'{selected_x} vs {selected_y} for {selected_type} Legendary Pokemon')
+    
+        else:
+            fig.update_layout(title=f'{selected_x} vs {selected_y} for Legendary {selected_type} Pokemon')
+
     
     else:
-        fig.update_layout(title=f'{selected_x} vs {selected_y} for Legendary {selected_type} Pokemon')
+        fig = px.scatter(df_gen[df_gen['Generation']==selected_gen],
+                 x=selected_x,y=selected_y, color='Primary',
+                 color_discrete_map=colours, hover_data='Name')
+        fig.update_layout(title=f'{selected_x} vs {selected_y} for {selected_type} Pokemon in Generation {selected_gen}')
+
+else:
+    if selected_gen == 'All':
+        fig = px.scatter(df_gen,
+                 x=selected_x,y=selected_y, color='Primary',
+                 color_discrete_map=colours, hover_data='Name', size=selected_size)
+        fig.update_layout(title=f'{selected_x} vs {selected_y} for {selected_type} Pokemon from all Generations sized by {selected_size}')
 
     
-else:
-    fig = px.scatter(df_gen[df_gen['Generation']==selected_gen],
+    elif selected_gen == 'Legendary':
+        fig = px.scatter(df_gen[df_gen['Legendary']==True],
                  x=selected_x,y=selected_y, color='Primary',
-                 color_discrete_map=colours, hover_data='Name', size='HP')
-    fig.update_layout(title=f'{selected_x} vs {selected_y} for {selected_type} Pokemon in Generation {selected_gen}')
+                 color_discrete_map=colours, hover_data='Name', size=selected_size)
+        if selected_type == 'All':
+            fig.update_layout(title=f'{selected_x} vs {selected_y} for {selected_type} Legendary Pokemon sized by {selected_size}')
+    
+        else:
+            fig.update_layout(title=f'{selected_x} vs {selected_y} for Legendary {selected_type} Pokemon sized by {selected_size}')
+
+    
+    else:
+        fig = px.scatter(df_gen[df_gen['Generation']==selected_gen],
+                 x=selected_x,y=selected_y, color='Primary',
+                 color_discrete_map=colours, hover_data='Name', size=selected_size)
+        fig.update_layout(title=f'{selected_x} vs {selected_y} for {selected_type} Pokemon in Generation {selected_gen} sized by {selected_size}')
     
     
 #telling streamlit you have a plotly fig to insert
