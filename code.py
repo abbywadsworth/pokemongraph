@@ -57,7 +57,7 @@ selected_y = st.selectbox('Select a variable for your y-axis',y)
 
 
 size = ['Height', 'HP', 'MaxHP', 'Stamina', 'Weight']
-gen.append('None')
+size.append('None')
 
 selected_size = st.selectbox('Select a variable for your size',size)
 
