@@ -86,7 +86,7 @@ colours = {
 }    
     
 
-if selected_size == 'None:
+if selected_size == 'None':
     if selected_gen == 'All':
         fig = px.scatter(df_gen,
                  x=selected_x,y=selected_y, color='Primary',
