@@ -91,7 +91,7 @@ if selected_size == 'None':
         fig = px.scatter(df_gen,
                  x=selected_x,y=selected_y, color='Primary',
                  color_discrete_map=colours, hover_data='Name')
-        fig.update_layout(title=f'{selected_x} vs {selected_y} for {selected_type} Pokemon from all Generations')
+        fig.update_layout(title=f'{selected_x} vs {selected_y} for {selected_type} Pokemon from {selected_gen} Generations')
 
     
     elif selected_gen == 'Legendary':
@@ -116,7 +116,7 @@ else:
         fig = px.scatter(df_gen,
                  x=selected_x,y=selected_y, color='Primary',
                  color_discrete_map=colours, hover_data='Name', size=selected_size)
-        fig.update_layout(title=f'{selected_x} vs {selected_y} for {selected_type} Pokemon from all Generations sized by {selected_size}')
+        fig.update_layout(title=f'{selected_x} vs {selected_y} for {selected_type} Pokemon from {selected_gen} Generations sized by {selected_size}')
 
     
     elif selected_gen == 'Legendary':
